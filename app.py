@@ -180,7 +180,7 @@ with tab_single:
 
     col_btn, col_conf = st.columns([2, 3])
     with col_btn:
-        run_single = st.button("Klasifikasi", type="primary", use_container_width=True, key="btn_single")
+        run_single = st.button("Klasifikasi", type="primary", width="stretch", key="btn_single")
     with col_conf:
         threshold = st.slider(
             "Confidence threshold", 0.5, 1.0, THRESHOLD, 0.01,
@@ -248,16 +248,16 @@ with tab_batch:
             col_sel   = st.selectbox("Pilih kolom komentar", col_opts)
             texts_to_classify = df_upload[col_sel].dropna().astype(str).tolist()
             st.caption(f"{len(texts_to_classify)} komentar ditemukan di kolom `{col_sel}`")
-            st.dataframe(df_upload[[col_sel]].head(), use_container_width=True)
+            st.dataframe(df_upload[[col_sel]].head(), width="stretch")
 
     run_batch = st.button(
-    f"Klasifikasi {len(texts_to_classify)} Komentar" if texts_to_classify else "Klasifikasi",
-    type="primary",
-    use_container_width=True,
-    disabled=not (model_loaded and texts_to_classify),
-    key="btn_batch",
+        f"Klasifikasi {len(texts_to_classify)} Komentar" if texts_to_classify else "Klasifikasi",
+        type="primary",
+        width="stretch",
+        disabled=not (model_loaded and texts_to_classify),
+        key="btn_batch",
     )
-    
+
     if run_batch and texts_to_classify:
         progress_bar = st.progress(0, "Memproses komentar...")
         results = []
@@ -319,5 +319,5 @@ with tab_batch:
             data=csv_out,
             file_name="hasil_klasifikasi.csv",
             mime="text/csv",
-            use_container_width=True,
+            width="stretch",
         )
